@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PCBTServer:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PCBTServer_jar</output-path>
+    <root id="archive" name="PCBTServer.jar">
+      <element id="module-output" name="PCBTServer" />
+      <element id="extracted-dir" path="C:/Program Files/Java/bluecove-2.1.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
