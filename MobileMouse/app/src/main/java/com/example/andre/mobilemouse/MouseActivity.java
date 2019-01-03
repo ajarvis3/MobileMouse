@@ -40,6 +40,7 @@ public class MouseActivity extends AppCompatActivity
 
     private SensorManager mSensorManager;
     private Sensor mAccelerate;
+    private AccelerometerHandler mAccel;
     private long mTimestamp;
     private double lastX;
     private double lastY;
@@ -54,7 +55,8 @@ public class MouseActivity extends AppCompatActivity
             finish();
         }
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mAccelerate = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mAccelerate = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+        mAccel = new AccelerometerHandler();
         mTimestamp = 0;
     }
 
@@ -82,27 +84,9 @@ public class MouseActivity extends AppCompatActivity
      */
     @Override
     public final void onSensorChanged(SensorEvent event) {
-        double x = event.values[0];
-        double y = event.values[1];
-        if (mTimestamp != 0) {
-            String s = "SWIPE:";
-            double dt = 1;
-            double dx = (int)(x * dt);
-            double dy = (int)(y * dt) * -1;
-            double x1 = dx + lastX;
-            double y1 = dy + lastY;
-            lastX = (dx == 0 ? 0 : x1);
-            lastY = (dy == 0 ? 0 : y1);
-            int xout = (int) (x1 * 100);
-            int yout = (int) (y1 * 100);
-            Log.i("HERPITY", x1 + " " + y1 + " " + dx + " " + dy + " " + dt);
-            s += xout + ":";
-            s += yout + "_";
-            if (mBtWriter != null && (Math.abs(x1) >= 1 || Math.abs(y1) >= 1)) {
-                mBtWriter.write(s);
-            }
-        }
-        mTimestamp = (long)(event.timestamp * Math.pow(10, -9));
+        String res = mAccel.handleSensor(event);
+        Log.i("OUTMOUSE", res);
+        mBtWriter.write(res);
     }
 
     @Override
