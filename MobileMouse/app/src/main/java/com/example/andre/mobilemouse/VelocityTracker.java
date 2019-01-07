@@ -25,7 +25,7 @@ import android.util.Log;
  * should always be equal to zero prior to making the switch.
  */
 public class VelocityTracker {
-    private static int MAX = 200;
+    private static int MAX = 500;
 
     private long mLastTime;
     private double mLastZ;

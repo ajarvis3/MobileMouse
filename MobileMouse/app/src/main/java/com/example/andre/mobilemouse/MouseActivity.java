@@ -97,7 +97,7 @@ public class MouseActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        mSensorManager.registerListener(this, mAccelerate, SensorManager.SENSOR_DELAY_GAME);
+        mSensorManager.registerListener(this, mAccelerate, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
