@@ -55,7 +55,7 @@ public class MouseActivity extends AppCompatActivity
             finish();
         }
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mAccelerate = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+        mAccelerate = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mAccel = new AccelerometerHandler();
         mTimestamp = 0;
     }
@@ -97,7 +97,7 @@ public class MouseActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        mSensorManager.registerListener(this, mAccelerate, SensorManager.SENSOR_DELAY_UI);
+        mSensorManager.registerListener(this, mAccelerate, SensorManager.SENSOR_DELAY_GAME);
     }
 
     @Override

@@ -28,11 +28,9 @@ public class MouseThread extends Thread {
         try {
             DataInputStream dataIn = sc.openDataInputStream();
             byte[] buffer = new byte[1024];
-            while (true) {
-                dataIn.read(buffer);
-                String data = getStringFromBytes(buffer);
-                mp.handleInput(data);
-            }
+            dataIn.read(buffer);
+            String data = getStringFromBytes(buffer);
+            mp.handleInput(data);
         }
         catch (IOException e) {
             e.printStackTrace();
