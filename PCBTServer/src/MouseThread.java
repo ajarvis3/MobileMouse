@@ -32,8 +32,8 @@ public class MouseThread extends Thread {
                 dataIn.read(buffer);
                 String data = getStringFromBytes(buffer);
                 String[] arr = data.split("_");
-                for (String s : arr)
-                    mp.handleInput(s);
+                // for (String s : arr)
+                    mp.handleInput(arr[0]);
             }
         }
         catch (IOException e) {
