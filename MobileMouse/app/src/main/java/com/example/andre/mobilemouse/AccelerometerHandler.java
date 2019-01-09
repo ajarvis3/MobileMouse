@@ -16,7 +16,7 @@ public class AccelerometerHandler {
     }
 
     public String handleSensor(SensorEvent e) {
-        String res = "SWIPE:";
+        String res = "";
         double ax = e.values[0];
         double ay = e.values[1] * -1;
         long time = e.timestamp;
@@ -30,7 +30,8 @@ public class AccelerometerHandler {
         }
         String xout = mXVelo.getOutputVelo(MULTIPLIER);
         String yout = mYVelo.getOutputVelo(MULTIPLIER);
-        res = res + xout + ":" + yout + "_";
+        if (!xout.equals("0") || !yout.equals("0"))
+            res = "SWIPE:" + xout + ":" + yout + "_";
         return res;
     }
 }
