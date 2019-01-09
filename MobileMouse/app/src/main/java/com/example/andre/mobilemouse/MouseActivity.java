@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.andre.mobilemouse.OnTouchListener.LeftClickListener;
 import com.example.andre.mobilemouse.OnTouchListener.ScrollListener;
+import com.example.andre.mobilemouse.OnTouchListener.SwipeListener;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -27,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  * https://developer.android.com/guide/topics/connectivity/bluetooth#java used as reference
  */
 public class MouseActivity extends AppCompatActivity
-        implements BluetoothDialogFragment.GetBluetoothDeviceListener, SensorEventListener {
+        implements BluetoothDialogFragment.GetBluetoothDeviceListener {
     private static final String TAG = "MOUSE_ACTIVITY";
 
     private final int REQUEST_ENABLE_BT = 137;
@@ -38,13 +39,6 @@ public class MouseActivity extends AppCompatActivity
     private BluetoothSocket mSocket;
     private BluetoothWriter mBtWriter;
 
-    private SensorManager mSensorManager;
-    private Sensor mAccelerate;
-    private AccelerometerHandler mAccel;
-    private long mTimestamp;
-    private double lastX;
-    private double lastY;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +48,6 @@ public class MouseActivity extends AppCompatActivity
             Toast.makeText(this, getString(R.string.btnotavailable), Toast.LENGTH_SHORT).show();
             finish();
         }
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mAccelerate = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mAccel = new AccelerometerHandler();
-        mTimestamp = 0;
     }
 
     @Override
@@ -76,34 +66,9 @@ public class MouseActivity extends AppCompatActivity
 
         View leftClick = findViewById(R.id.leftClick);
         leftClick.setOnTouchListener(new LeftClickListener(mBtWriter));
-    }
 
-    /**
-     * Handles motion of the phone as cursor movement.
-     * @param event the SensorEvent of motion
-     */
-    @Override
-    public final void onSensorChanged(SensorEvent event) {
-        String res = mAccel.handleSensor(event);
-        Log.i("OUTMOUSE", res);
-        mBtWriter.write(res);
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // do nothing...
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mSensorManager.registerListener(this, mAccelerate, SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-        mSensorManager.unregisterListener(this);
+        View swipe = findViewById(R.id.SwipeArea);
+        swipe.setOnTouchListener(new SwipeListener(mBtWriter));
     }
 
     /**
