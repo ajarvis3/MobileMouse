@@ -8,10 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Use http://luugiathuy.com/2011/02/android-java-bluetooth/ as reference DID NOT USE
- * Use http://www.aviyehuda.com/blog/2010/01/08/connecting-to-bluetooth-devices-with-java/ as reference
- * Use https://www.oracle.com/technetwork/systems/index-140411.html as reference
- * UUID: "04c6093b-0000-1000-8000-00805f9b34fb"
  * invoked with <code> java Server numClientsToAccept </code>
  * Possibly refactor some stuff to make this more generic - extend the class and provide name, UUID, protocol, numAccept
  */
